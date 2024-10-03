@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PostController extends Controller
 {
+
+    use AuthorizesRequests;
+
     // List all posts
     public function index()
     {
@@ -48,9 +52,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         // Check if the authenticated user is the owner of the post
-        if (Auth::user()->id !== $post->user_id) {
-            return redirect('/posts')->with('error', 'You do not have permission to edit this post.');
-        }
+        $this->authorize('edit', $post);
 
         return view('posts.edit', compact('post'));
     }
@@ -66,9 +68,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         // Check if the authenticated user is the owner of the post
-        if (Auth::user()->id !== $post->user_id) {
-            return redirect('/posts')->with('error', 'You do not have permission to update this post.');
-        }
+        $this->authorize('update', $post);
 
         // Update the post with validated data
         $post->update($request->all());
@@ -82,9 +82,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         // Check if the authenticated user is the owner of the post
-        if (Auth::user()->id !== $post->user_id) {
-            return redirect('/posts')->with('error', 'You do not have permission to delete this post.');
-        }
+        $this->authorize('delete', $post);
 
         // Delete the post
         $post->delete();
