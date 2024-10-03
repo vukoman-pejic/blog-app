@@ -25,15 +25,19 @@
                     <h5 class="card-title">{{ $post->title }}</h5>
                     <p class="card-text">{{ Str::limit($post->content, 100) }}</p>
                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-secondary">View</a>
-                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
-                    <form action="{{ route('posts.delete', $post->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+
+                    @if(auth()->id() === $post->user_id) <!-- Check if the authenticated user is the owner of the post -->
+                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('posts.delete', $post->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    @endif
                 </div>
             </div>
         @endforeach
     </div>
 </div>
 @endsection
+
