@@ -7,8 +7,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 
 Route::get('/', function () {
-    $posts = Post::latest()->get(); // Fetch all posts
-    return view('welcome', compact('posts')); // Pass posts to the welcome view
+    $posts = Post::latest()->get();
+    return view('welcome', compact('posts'));
 });
 
 Route::get('/dashboard', function () {

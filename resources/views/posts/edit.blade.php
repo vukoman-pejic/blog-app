@@ -25,7 +25,7 @@
             <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
             <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" id="content" name="content" rows="5" required>{{ $post->content }}</textarea>
         </div>
-        <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600">Update</button>
+        <button type="submit" class="bg-blue-500 text-black font-semibold py-2 px-4 rounded hover:bg-blue-600">Update</button>
     </form>
 </div>
 @endsection
