@@ -78,6 +78,8 @@ Requirements:
 
 7. **Bonus**:
 
+- Docker: Containerize the application using Docker, ensuring it can run in a containerized environment for local development and production.
+
 - Write unit and feature tests using Laravel’s testing framework (php artisan make:test).
 
 ## Prerequisites
