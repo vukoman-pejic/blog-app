@@ -26,7 +26,7 @@ class CommentController extends Controller
         ]);
 
         // Redirect back to the post with a success message
-        return back()->with('success', 'Comment added successfully!');
+        return redirect()->route('posts.show', $postId)->with('success', 'Comment added successfully.');
     }
 
     public function delete($id)

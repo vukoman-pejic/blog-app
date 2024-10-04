@@ -35,17 +35,17 @@ class CommentPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Post $post)
+    public function update(User $user, Comment $comment)
     {
-        return $user->id === $post->user_id;
+        return $user->id === $comment->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Post $post)
+    public function delete(User $user, Comment $comment)
     {
-        return $user->id === $post->user_id;
+        return $user->id === $comment->user_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class CommentPolicy
      */
     public function forceDelete(User $user, Comment $comment): bool
     {
-        return $user->id === $post->user_id;
+        return $user->id === $comment->user_id;
     }
 }
