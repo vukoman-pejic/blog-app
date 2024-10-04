@@ -18,7 +18,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
+                    </form>  
                 @endif
             </div>
         </div>
@@ -36,8 +36,10 @@
         </form>
     @else
         <p>Please <a href="{{ route('login') }}">login</a> to leave a comment.</p>
-    @endauth
-
-    <!-- <a href="{{ route('posts.index') }}" class="btn btn-secondary">Back to Posts</a> -->
+    @endauth  
+    
+    <div class="mt-5">
+        <a href="{{ route('posts.index') }}" class="btn btn-secondary">Back to Posts</a>
+    </div>
 </div>
 @endsection
