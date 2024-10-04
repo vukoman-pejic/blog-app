@@ -91,6 +91,8 @@ Requirements:
     composer -v
     ```
 3. **Database**: Make sure you have a database server running (MySQL, PostgreSQL, SQLite, etc.). You'll need to create a database for your Laravel application.
+4. **Docker**
+5. **Docker Compose**
 
 
 ## Set up the project
@@ -142,3 +144,16 @@ Requirements:
     ```console
     php artisan test
     ```
+11. **Running Docker**: If you want to run the docker-compose you need to set your connection settings:
+    ```console
+    MYSQL_ROOT_PASSWORD: YOUR_ROOT_PASSWORD
+    MYSQL_DATABASE: YOUR_DATABASE
+    MYSQL_USER: YOUR_USERNAME
+    MYSQL_PASSWORD: YOUR_PASSWORD
+    ```
+    and then run the following commands: 
+    ```console
+    docker-compose build
+    docker-compose up
+    ```
+Once all the containers are up, the application should be available at http://localhost. You can visit it in your browser.
