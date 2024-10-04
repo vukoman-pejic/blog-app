@@ -7,60 +7,138 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Requirements:
+1. **User Registration and Authentication**:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Use Laravel’s built-in authentication system (php artisan make:auth or Laravel Breeze).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Implement registration, login, and logout functionalities.
 
-## Learning Laravel
+2. **Database Setup**:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Create migration files for the following tables:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+        users (id, name, email, password)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+        posts (id, user_id, title, content, created_at)
 
-## Laravel Sponsors
+        comments (id, post_id, user_id, comment, created_at)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Use Eloquent relationships to link:
 
-### Premium Partners
+        User to Posts (one-to-many).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+        Post to Comments (one-to-many).
 
-## Contributing
+3. **CRUD for Blog Posts**:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Implement the following routes:
 
-## Code of Conduct
+        GET /posts: List all posts.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+        GET /posts/create: Show the form to create a new post (authenticated users only).
 
-## Security Vulnerabilities
+        POST /posts: Store the post (authenticated users only).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+        GET /posts/{id}: View a single post along with comments.
 
-## License
+        GET /posts/{id}/edit: Edit the post (only the owner of the post).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+        PUT /posts/{id}: Update the post (only the owner of the post).
+
+        DELETE /posts/{id}: Delete the post (only the owner of the post).
+
+    Add input validation for post creation and updating (e.g., required fields for title and content).
+
+4. **Comments**:
+
+- Users can leave comments on posts.
+
+- Implement the following routes:
+
+        POST /posts/{id}/comments: Add a comment (for authenticated users and guests).
+
+        DELETE /comments/{id}: Delete a comment (only the comment owner or post owner).
+
+    Display all comments under the corresponding post.
+
+5. **Authorization & Middleware**:
+
+- Use Laravel’s authorization (e.g., Gate or Policies) to allow only the post/comment owner to edit/delete their content.
+
+- Create middleware to protect routes that require authentication.
+
+6. **Frontend**:
+
+- Use Tailwind CSS for styling.
+
+- Implement simple views for listing posts, creating/editing posts, and viewing comments.
+
+7. **Bonus**:
+
+- Write unit and feature tests using Laravel’s testing framework (php artisan make:test).
+
+## Prerequisites
+
+1. **PHP**: Ensure you have PHP installed (preferably version 8.0 or higher). You can check your PHP version by running:
+    ```console
+    php -v
+    ```
+2. **Composer**: Laravel uses Composer for dependency management. You can check if Composer is installed by running:
+    ```console
+    composer -v
+    ```
+3. **Database**: Make sure you have a database server running (MySQL, PostgreSQL, SQLite, etc.). You'll need to create a database for your Laravel application.
+
+
+## Set up the project
+
+1. **Clone the Project Repository**: Clone your Laravel project repository from GitHub using the following command:
+    ```console
+    git clone https://github.com/yourusername/your-repo-name.git
+    ```
+2. **Navigate to the Project Directory**: Change into the project directory:
+    ```console
+    cd your-repo-name
+    ```
+3. **Install Composer Dependencies**:  Run the following command to install the required PHP packages using Composer:
+    ```console
+    composer install
+    ```
+4. **Copy the Environment File**: Copy the .env.example file to a new file named .env:
+    ```console
+    cp .env.example .env
+    ```
+5. **Generate Application Key**: Generate the application key by running the following command. This will set the APP_KEY value in your .env file:
+    ```console
+    php artisan key:generate
+    ```
+6. **Configure Your Database**: Open the .env file in a text editor and configure your database connection settings:
+    ```console
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=your_database_name
+    DB_USERNAME=your_database_user
+    DB_PASSWORD=your_database_password
+    ```
+7. **Run Migrations**: Run migrations to create the database schema:
+    ```console
+    php artisan migrate
+    ```
+8. **Seed the Database**: To populate your database with initial data, run the following command:
+    ```console
+    php artisan db:seed
+    ```
+9. **Serve Your Application**: You can start a local development server using the built-in PHP server:
+    ```console
+    php artisan serve
+    ```
+    Your application should now be accessible at http://localhost:8000.
+
+10. **Running Tests**: If you want to run the tests to ensure everything is set up correctly, you can use:
+    ```console
+    php artisan test
+    ```
